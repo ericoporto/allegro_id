@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>allegro_id - calculates Allegro 4 ID</title>
+    <link rel="stylesheet" type="text/css" href="simple.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function AL_ID(a,b,c,d) {
+         return (((a)<<24) | ((b)<<16) | ((c)<<8) | (d))
+        }
+
+        function STR_AL_ID(str_4char) {
+         var a = str_4char.charCodeAt(0);
+         var b = str_4char.charCodeAt(1);
+         var c = str_4char.charCodeAt(2);
+         var d = str_4char.charCodeAt(3);
+         return AL_ID(a,b,c,d);
+        }
+        
+        function isString(x) {
+          return Object.prototype.toString.call(x) === "[object String]"
+        }
+        
+        function recalculateID(input_value) {
+            if(isString(input_value)){
+                if(input_value.length == 4){                
+                    return STR_AL_ID(input_value).toString();
+                }           
+            }
+        
+            return ""
+        }
+        
+        function onload(){
+            const source = document.getElementById('allegro_ID');
+            const result = document.getElementById('resulting_int');
+
+            const inputHandler = function(e) {
+              result.innerHTML = recalculateID(e.target.value);
+            }
+
+            source.addEventListener('input', inputHandler);
+            source.addEventListener('propertychange', inputHandler);  
+            
+            result.innerHTML = recalculateID(source.value);        
+        }     
+        
+          
+         
+    </script>
+
+</head>
+<body onload="onload()">
+    <header>
+        <h1> allegro_id - online Allegro 4 ID calculator</h1>
+        just a quick hack to help debug Allegro 4 IDs (e.g.: "XWIN") as int values
+    </header>
+<p>
+<div style="width:500; border: 0px; margin: 2em;">
+<label for="allegro_ID">ID (4 characters):</label>
+
+<input type="text" id="allegro_ID" name="allegro_ID" required
+       minlength="4" maxlength="4" size="6" value="XWIN">
+
+ID int value:
+<div id="resulting_int"></div>
+
+</div>
+    <footer>
+      <br>MIT License, copyright Érico Vieira Porto 2020</br>
+      <br> code on the Github repository:
+      <a href="https://github.com/ericoporto/allegro_id"> github.com/ericoporto/allegro_id </a>
+    </footer>
+</body>
+</html>
+
+
+
+
